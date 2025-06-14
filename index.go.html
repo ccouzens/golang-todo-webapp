@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en-GB">
+
+<head>
+  <title>Todos</title>
+</head>
+
+<body>
+  <h1>Todo App</h1>
+  {{- if .Todos -}}
+  <ul>
+    {{- range .Todos -}}
+    <li>
+      {{- .Text -}}
+    </li>
+    {{- end -}}
+  </ul>
+  {{- else -}}
+  {{- end -}}
+</body>
+
+</html>
