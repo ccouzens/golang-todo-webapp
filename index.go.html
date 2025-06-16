@@ -7,16 +7,29 @@
 
 <body>
   <h1>Todo App</h1>
-  {{- if .Todos -}}
   <ul>
+    <li>
+      <form action="/create/" method="post">
+        <input name="Text" />
+        <input type="submit" value="New Todo" />
+      </form>
+    </li>
     {{- range .Todos -}}
     <li>
       {{- .Text -}}
+      {{ if .Completed -}}
+      <form action="/{{ .Id }}/incomplete/" method="post">
+        <input value="Mark Incomplete" type="submit" />
+      </form>
+      {{- else -}}
+      <form action="/{{ .Id }}/complete/" method="post">
+        <input value="Mark Complete" type="submit" />
+      </form>
+      {{- end -}}
+      <a href="/{{ .Id }}/edit/">Edit</a>
     </li>
     {{- end -}}
   </ul>
-  {{- else -}}
-  {{- end -}}
 </body>
 
 </html>
