@@ -26,13 +26,21 @@ func main() {
 			{Id: "f5cbe95c-42d2-11f0-85e3-5acc179b5fff", Text: "Pack European travel adapter", Completed: false},
 		}}
 	var server = http.Server{Addr: "127.0.0.1:8080", Handler: serveMux}
-	var templates, err = template.ParseFiles("index.go.html")
+	var templates, err = template.ParseFiles("index.go.html", "edit.go.html")
 	if err != nil {
 		panic(err)
 	}
-	serveMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Content-Type", "text/html")
+	serveMux.HandleFunc("/{$}", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Content-Type", "text/html; charset=utf-8")
 		err := templates.ExecuteTemplate(w, "index.go.html", &app)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Template error %v", err), http.StatusInternalServerError)
+		}
+	})
+
+	serveMux.HandleFunc("/{id}/edit/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Content-Type", "text/html; charset=utf-8")
+		err := templates.ExecuteTemplate(w, "edit.go.html", &app)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Template error %v", err), http.StatusInternalServerError)
 		}
