@@ -40,9 +40,23 @@ func main() {
 
 	serveMux.HandleFunc("/{id}/edit/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Content-Type", "text/html; charset=utf-8")
-		err := templates.ExecuteTemplate(w, "edit.go.html", &app)
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Template error %v", err), http.StatusInternalServerError)
+		var todo Todo
+
+		for _, t := range app.Todos {
+			if t.Id == r.PathValue("id") {
+				todo = t
+				break
+			}
+		}
+
+		if todo.Id == "" {
+			http.NotFound(w, r)
+		} else {
+
+			err := templates.ExecuteTemplate(w, "edit.go.html", &todo)
+			if err != nil {
+				http.Error(w, fmt.Sprintf("Template error %v", err), http.StatusInternalServerError)
+			}
 		}
 	})
 
