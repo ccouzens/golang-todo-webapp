@@ -5,3 +5,13 @@
   <title>Todos: {{ .Text }}</title>
 
 </head>
+
+<body>
+  <h1>Todo App</h1>
+  <form action="/{{ .Id }}/" method="post">
+    <input name="Text" value="{{ .Text }}" />
+  </form>
+
+</body>
+
+</html>
