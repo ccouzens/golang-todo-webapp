@@ -8,4 +8,8 @@ if (appElement === null) {
 	throw new Error("App element couldn't be found");
 }
 
-render(<App />, appElement);
+const todos = JSON.parse(
+	new URLSearchParams(window.location.search).get("todos") ?? "[]",
+);
+
+render(<App todos={todos} />, appElement);
