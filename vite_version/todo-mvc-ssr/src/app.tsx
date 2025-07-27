@@ -1,8 +1,13 @@
 import "./app.css";
 import type { FunctionComponent } from "preact";
 
+export type Todo = {
+	text: string;
+	isCompleted: boolean;
+};
+
 export const App: FunctionComponent<{
-	todos: { text: string; isCompleted: boolean }[];
+	todos: Todo[];
 }> = ({ todos }) => {
 	return (
 		<>
