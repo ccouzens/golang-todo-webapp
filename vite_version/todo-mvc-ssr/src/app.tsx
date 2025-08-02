@@ -74,7 +74,7 @@ export const App: FunctionComponent<{
 					<TodosInputs
 						todos={todos.filter((innerTodo) => innerTodo !== todo)}
 					/>
-					<input type="submit" value="❌" />
+					<input type="submit" value="❌" class="remove" />
 				</form>
 			</div>
 		))}

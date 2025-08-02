@@ -24,7 +24,25 @@ input[type="text"] {
 	box-sizing: border-box;
 }
 
+input[type="submit"] {
+	cursor: pointer;
+}
+
 .todo {
 	display: grid;
 	grid-template-columns: auto 1fr auto;
+	align-items: stretch;
+}
+
+.todo form {
+	display: flex;
+}
+
+.remove {
+	opacity: 0;
+}
+
+.todo:focus-within .remove,
+.todo:hover .remove {
+	opacity: 1;
 }
