@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "preact";
+import type { ComponentProps, FunctionComponent } from "preact";
 import type { InputHTMLAttributes } from "preact/compat";
 
 export type Todo = {
@@ -21,37 +21,44 @@ const TodoTextInput: FunctionComponent<InputHTMLAttributes> = (inputProps) => (
 	<input type="hidden" name="todos[]text" {...inputProps} />
 );
 
+const TodosInputs: FunctionComponent<{
+	todos: Todo[];
+	isCompletedProps?: (
+		todo: Todo,
+	) => Partial<ComponentProps<typeof TodoIsCompletedInput>>;
+	textProps?: (todo: Todo) => Partial<ComponentProps<typeof TodoTextInput>>;
+}> = ({ todos, isCompletedProps, textProps }) =>
+	todos.map((todo) => (
+		<>
+			<TodoIsCompletedInput
+				value={todo.isCompleted}
+				{...isCompletedProps?.(todo)}
+			/>
+			<TodoTextInput value={todo.text} {...textProps?.(todo)} />
+		</>
+	));
+
 export const App: FunctionComponent<{
 	todos: Todo[];
 }> = ({ todos }) => {
 	return (
 		<>
 			<form id="newTodo" method="get">
-				{todos.map((todo) => {
-					return (
-						<>
-							<TodoTextInput value={todo.text} />
-							<TodoIsCompletedInput value={todo.isCompleted} />
-						</>
-					);
-				})}
+				<TodosInputs todos={todos} />
 				<TodoIsCompletedInput value={false} />
 			</form>
-			{todos.map((_todo, i) => {
+			{todos.map((todo, i) => {
 				return (
 					<form id={`todo${i}_complete`}>
-						{todos.map((innerTodo, j) => {
-							return (
-								<>
-									<TodoTextInput value={innerTodo.text} />
-									<TodoIsCompletedInput
-										value={
-											i === j ? !innerTodo.isCompleted : innerTodo.isCompleted
-										}
-									/>
-								</>
-							);
-						})}
+						<TodosInputs
+							todos={todos}
+							isCompletedProps={(innerTodo) => ({
+								value:
+									innerTodo === todo
+										? !todo.isCompleted
+										: innerTodo.isCompleted,
+							})}
+						/>
 					</form>
 				);
 			})}
@@ -72,17 +79,12 @@ export const App: FunctionComponent<{
 							value={todo.isCompleted ? "☑" : "☐"}
 						/>
 						<form method="get">
-							{todos.map((innerTodo, j) => {
-								return (
-									<>
-										<TodoIsCompletedInput value={innerTodo.isCompleted} />
-										<TodoTextInput
-											value={innerTodo.text}
-											type={i === j ? "text" : "hidden"}
-										/>
-									</>
-								);
-							})}
+							<TodosInputs
+								todos={todos}
+								textProps={(innerTodo) => ({
+									type: innerTodo === todo ? "text" : "hidden",
+								})}
+							/>
 						</form>
 					</div>
 				);
