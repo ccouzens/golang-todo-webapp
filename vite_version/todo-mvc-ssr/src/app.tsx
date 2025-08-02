@@ -71,7 +71,19 @@ export const App: FunctionComponent<{
 							form={`todo${i}_complete`}
 							value={todo.isCompleted ? "☑" : "☐"}
 						/>
-						{todo.text}
+						<form method="get">
+							{todos.map((innerTodo, j) => {
+								return (
+									<>
+										<TodoIsCompletedInput value={innerTodo.isCompleted} />
+										<TodoTextInput
+											value={innerTodo.text}
+											type={i === j ? "text" : "hidden"}
+										/>
+									</>
+								);
+							})}
+						</form>
 					</div>
 				);
 			})}
