@@ -43,41 +43,29 @@ export const App: FunctionComponent<{
 }> = ({ todos }) => {
 	return (
 		<>
-			<form id="newTodo" method="get">
+			<h1>todos</h1>
+			<form method="get">
 				<TodosInputs todos={todos} />
 				<TodoIsCompletedInput value={false} />
+				<TodoTextInput type="text" placeholder="What needs to be done?" />
 			</form>
-			{todos.map((todo, i) => {
-				return (
-					<form id={`todo${i}_complete`}>
-						<TodosInputs
-							todos={todos}
-							isCompletedProps={(innerTodo) => ({
-								value:
-									innerTodo === todo
-										? !todo.isCompleted
-										: innerTodo.isCompleted,
-							})}
-						/>
-					</form>
-				);
-			})}
-			<h1>todos</h1>
-			<TodoTextInput
-				form="newTodo"
-				type="text"
-				placeholder="What needs to be done?"
-			/>
-			{todos.map((todo, i) => {
+			{todos.map((todo) => {
 				return (
 					<div
 						class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
 					>
-						<input
-							type="submit"
-							form={`todo${i}_complete`}
-							value={todo.isCompleted ? "☑" : "☐"}
-						/>
+						<form method="get">
+							<TodosInputs
+								todos={todos}
+								isCompletedProps={(innerTodo) => ({
+									value:
+										innerTodo === todo
+											? !todo.isCompleted
+											: innerTodo.isCompleted,
+								})}
+							/>
+							<input type="submit" value={todo.isCompleted ? "☑" : "☐"} />
+						</form>
 						<form method="get">
 							<TodosInputs
 								todos={todos}
@@ -85,6 +73,12 @@ export const App: FunctionComponent<{
 									type: innerTodo === todo ? "text" : "hidden",
 								})}
 							/>
+						</form>
+						<form method="get">
+							<TodosInputs
+								todos={todos.filter((innerTodo) => innerTodo !== todo)}
+							/>
+							<input type="submit" value="❌" />
 						</form>
 					</div>
 				);

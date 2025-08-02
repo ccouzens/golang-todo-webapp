@@ -14,4 +14,10 @@ h1 {
 
 input[type="text"] {
 	width: 100%;
+	box-sizing: border-box;
+}
+
+.todo {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
 }
