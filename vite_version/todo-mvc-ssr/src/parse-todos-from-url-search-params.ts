@@ -8,9 +8,9 @@ export function parseTodosFromUrlSearchParams(
 	let text: string | undefined;
 	let isCompleted: boolean | undefined;
 	for (const [key, value] of searchParams) {
-		if (key === "todos[]text") {
+		if (key === "t") {
 			text = value;
-		} else if (key === "todos[]isCompleted") {
+		} else if (key === "c") {
 			isCompleted = value === "true";
 		}
 		if (text !== undefined && isCompleted !== undefined) {

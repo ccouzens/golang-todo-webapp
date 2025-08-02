@@ -6,8 +6,7 @@ describe(parseTodosFromUrlSearchParams, () => {
 		expect(parseTodosFromUrlSearchParams(new URLSearchParams())).toEqual([]);
 	});
 	test("couple todos", () => {
-		const searchString =
-			"todos[]text=clean+the+balcony&todos[]isCompleted=true&todos[]text=go+to+the+gym&todos[]isCompleted=false";
+		const searchString = "t=clean+the+balcony&c=true&t=go+to+the+gym&c=false";
 		expect(
 			parseTodosFromUrlSearchParams(new URLSearchParams(searchString)),
 		).toEqual([

@@ -11,14 +11,14 @@ const TodoIsCompletedInput: FunctionComponent<
 > = ({ value, ...inputProps }) => (
 	<input
 		type="hidden"
-		name="todos[]isCompleted"
+		name="c"
 		value={value ? "true" : "false"}
 		{...inputProps}
 	/>
 );
 
 const TodoTextInput: FunctionComponent<InputHTMLAttributes> = (inputProps) => (
-	<input type="hidden" name="todos[]text" {...inputProps} />
+	<input type="hidden" name="t" {...inputProps} />
 );
 
 const TodosInputs: FunctionComponent<{
@@ -43,7 +43,7 @@ export const App: FunctionComponent<{
 }> = ({ todos }) => (
 	<>
 		<h1>todos</h1>
-		<form method="get">
+		<form method="get" class="newTodo">
 			<TodosInputs todos={todos} />
 			<TodoIsCompletedInput value={false} />
 			<TodoTextInput type="text" placeholder="What needs to be done?" />
@@ -74,7 +74,7 @@ export const App: FunctionComponent<{
 					<TodosInputs
 						todos={todos.filter((innerTodo) => innerTodo !== todo)}
 					/>
-					<input type="submit" value="❌" class="remove" />
+					<input type="submit" value="×" class="remove" />
 				</form>
 			</div>
 		))}
