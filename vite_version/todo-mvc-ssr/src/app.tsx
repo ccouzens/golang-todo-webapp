@@ -1,9 +1,25 @@
 import type { FunctionComponent } from "preact";
+import type { InputHTMLAttributes } from "preact/compat";
 
 export type Todo = {
 	text: string;
 	isCompleted: boolean;
 };
+
+const TodoIsCompletedInput: FunctionComponent<
+	Omit<InputHTMLAttributes, "value"> & { value: boolean }
+> = ({ value, ...inputProps }) => (
+	<input
+		type="hidden"
+		name="todos[]isCompleted"
+		value={value ? "true" : "false"}
+		{...inputProps}
+	/>
+);
+
+const TodoTextInput: FunctionComponent<InputHTMLAttributes> = (inputProps) => (
+	<input type="hidden" name="todos[]text" {...inputProps} />
+);
 
 export const App: FunctionComponent<{
 	todos: Todo[];
@@ -14,26 +30,50 @@ export const App: FunctionComponent<{
 				{todos.map((todo) => {
 					return (
 						<>
-							<input type="hidden" name="todos[]text" value={todo.text} />
-							<input
-								type="hidden"
-								name="todos[]isCompleted"
-								value={todo.isCompleted ? "true" : "false"}
-							/>
+							<TodoTextInput value={todo.text} />
+							<TodoIsCompletedInput value={todo.isCompleted} />
 						</>
 					);
 				})}
-				<input type="hidden" name="todos[]isCompleted" value="false" />
+				<TodoIsCompletedInput value={false} />
 			</form>
+			{todos.map((_todo, i) => {
+				return (
+					<form id={`todo${i}_complete`}>
+						{todos.map((innerTodo, j) => {
+							return (
+								<>
+									<TodoTextInput value={innerTodo.text} />
+									<TodoIsCompletedInput
+										value={
+											i === j ? !innerTodo.isCompleted : innerTodo.isCompleted
+										}
+									/>
+								</>
+							);
+						})}
+					</form>
+				);
+			})}
 			<h1>todos</h1>
-			<input
+			<TodoTextInput
 				form="newTodo"
 				type="text"
 				placeholder="What needs to be done?"
-				name="todos[]text"
 			/>
-			{todos.map((todo) => {
-				return <div>{todo.text}</div>;
+			{todos.map((todo, i) => {
+				return (
+					<div
+						class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
+					>
+						<input
+							type="submit"
+							form={`todo${i}_complete`}
+							value={todo.isCompleted ? "☑" : "☐"}
+						/>
+						{todo.text}
+					</div>
+				);
 			})}
 		</>
 	);
