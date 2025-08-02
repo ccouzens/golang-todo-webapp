@@ -10,7 +10,21 @@ export const App: FunctionComponent<{
 }> = ({ todos }) => {
 	return (
 		<>
-			<form id="newTodo" method="get"></form>
+			<form id="newTodo" method="get">
+				{todos.map((todo) => {
+					return (
+						<>
+							<input type="hidden" name="todos[]text" value={todo.text} />
+							<input
+								type="hidden"
+								name="todos[]isCompleted"
+								value={todo.isCompleted ? "true" : "false"}
+							/>
+						</>
+					);
+				})}
+				<input type="hidden" name="todos[]isCompleted" value="false" />
+			</form>
 			<h1>todos</h1>
 			<input
 				form="newTodo"
