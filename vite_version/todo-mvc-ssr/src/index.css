@@ -63,12 +63,12 @@ input[type="text"] {
 }
 
 main {
-	background-color: var(--main-background-color);
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: stretch;
 	font-size: 1.5em;
 	grid-auto-rows: 2lh;
+	view-transition-name: main;
 }
 
 .todo form,
@@ -79,12 +79,13 @@ form.newTodo {
 
 .todo {
 	display: grid;
-	grid-column: 1 / 4;
 	grid-template-columns: subgrid;
 }
 
-.newTodo {
-	grid-column-start: 2;
+.newTodo,
+.todo {
+	background-color: var(--main-background-color);
+	grid-column: 1 / 4;
 }
 
 .newTodo input[type="text"]::placeholder {
