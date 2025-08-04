@@ -57,6 +57,12 @@ main {
 	box-shadow: 1em 1lh calc(max(1lh, 1em)) var(--shadow-color);
 }
 
+@media (max-width: 70em) {
+	main {
+		font-size: 1em;
+	}
+}
+
 .todo form,
 form.newTodo {
 	display: flex;
@@ -84,8 +90,10 @@ form.newTodo {
 	grid-column-start: 1;
 }
 
-.remove {
-	opacity: 0;
+@media (hover: hover) {
+	.remove {
+		opacity: 0;
+	}
 }
 
 .todo:focus-within .remove,
