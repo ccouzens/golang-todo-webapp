@@ -1,11 +1,25 @@
 :root {
 	--background-color: #eee;
+	--text-color: #000;
+	--main-background-color: #fff;
+	--placeholder-color: #777;
+	--shadow-color: #000;
 	background-color: var(--background-color);
+	color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #333;
+		--text-color: #fff;
+		--main-background-color: #000;
+	}
 }
 
 :root,
 input {
 	font-family: sans-serif;
+	color: var(--text-color);
 }
 
 body {
@@ -34,13 +48,13 @@ input[type="submit"] {
 }
 
 main {
-	background-color: white;
+	background-color: var(--main-background-color);
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: stretch;
 	font-size: 1.5em;
 	grid-auto-rows: 2lh;
-	box-shadow: 1em 1lh calc(max(1lh, 1em)) black;
+	box-shadow: 1em 1lh calc(max(1lh, 1em)) var(--shadow-color);
 }
 
 .todo form,
@@ -55,6 +69,11 @@ form.newTodo {
 
 .newTodo {
 	grid-column-start: 2;
+}
+
+.newTodo input[type="text"]::placeholder {
+	font-style: italic;
+	color: var(--placeholder-color);
 }
 
 .todo form {
