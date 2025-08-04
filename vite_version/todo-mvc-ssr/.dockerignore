@@ -1,5 +1,6 @@
 dist
 node_modules
+Dockerfile
 .dockerignore
 .gitignore
 ./src/parse-todos-from-url-search-params.test.ts

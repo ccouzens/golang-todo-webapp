@@ -1,3 +1,7 @@
+@view-transition {
+	navigation: auto;
+}
+
 :root {
 	--background-color: #eee;
 	--text-color: #000;
@@ -74,7 +78,9 @@ form.newTodo {
 }
 
 .todo {
-	display: contents;
+	display: grid;
+	grid-column: 1 / 4;
+	grid-template-columns: subgrid;
 }
 
 .newTodo {
@@ -84,14 +90,12 @@ form.newTodo {
 .newTodo input[type="text"]::placeholder {
 	font-style: italic;
 	color: var(--placeholder-color);
+	view-transition-name: new-todo;
+	width: min-content;
 }
 
 .todo form {
 	border-top: 1px solid var(--background-color);
-}
-
-.toggle {
-	grid-column-start: 1;
 }
 
 @media (hover: hover) {

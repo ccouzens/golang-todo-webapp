@@ -52,6 +52,9 @@ export const App: FunctionComponent<{
 			{todos.map((todo) => (
 				<div
 					class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
+					style={{
+						viewTransitionName: `todo-${btoa(todo.text).replaceAll("=", "")}`,
+					}}
 				>
 					<form method="get" class="toggle">
 						<TodosInputs
