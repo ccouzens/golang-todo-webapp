@@ -92,3 +92,7 @@ form.newTodo {
 .todo:hover .remove {
 	opacity: 1;
 }
+
+.todo.isCompleted input[type="text"] {
+	text-decoration: line-through;
+}
