@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
-import { createServer as createViteServer, type ViteDevServer } from "vite";
+import type { ViteDevServer } from "vite";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isProduction = import.meta.env?.SSR ?? false;
@@ -16,6 +16,7 @@ async function createServer() {
 		const sirv = (await import("sirv")).default;
 		app.use("/", sirv("./dist/client", { extensions: [] }));
 	} else {
+		const { createServer: createViteServer } = await import("vite");
 		vite = await createViteServer({
 			server: { middlewareMode: true },
 			appType: "custom",
