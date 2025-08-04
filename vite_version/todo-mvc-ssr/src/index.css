@@ -3,11 +3,6 @@
 	background-color: var(--background-color);
 }
 
-.newTodo,
-.todo {
-	background-color: white;
-}
-
 :root,
 input {
 	font-family: sans-serif;
@@ -29,31 +24,45 @@ input {
 	appearance: none;
 	border: none;
 	background: none;
-}
-
-input[type="text"] {
-	width: 100%;
-	box-sizing: border-box;
+	flex-grow: 1;
+	font-size: 1em;
+	padding: 0 0.5em;
 }
 
 input[type="submit"] {
 	cursor: pointer;
 }
 
-.todo {
+main {
+	background-color: white;
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: stretch;
-	margin-top: 1px;
+	font-size: 1.5em;
+	grid-auto-rows: 2lh;
+	box-shadow: 1em 1lh calc(max(1lh, 1em)) black;
 }
 
-.todo,
+.todo form,
+form.newTodo {
+	display: flex;
+	align-items: stretch;
+}
+
+.todo {
+	display: contents;
+}
+
 .newTodo {
-	border-radius: 0.25lh;
+	grid-column-start: 2;
 }
 
 .todo form {
-	display: flex;
+	border-top: 1px solid var(--background-color);
+}
+
+.toggle {
+	grid-column-start: 1;
 }
 
 .remove {

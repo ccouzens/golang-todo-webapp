@@ -43,40 +43,44 @@ export const App: FunctionComponent<{
 }> = ({ todos }) => (
 	<>
 		<h1>todos</h1>
-		<form method="get" class="newTodo">
-			<TodosInputs todos={todos} />
-			<TodoIsCompletedInput value={false} />
-			<TodoTextInput type="text" placeholder="What needs to be done?" />
-		</form>
-		{todos.map((todo) => (
-			<div
-				class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
-			>
-				<form method="get">
-					<TodosInputs
-						todos={todos}
-						isCompletedProps={(innerTodo) => ({
-							value:
-								innerTodo === todo ? !todo.isCompleted : innerTodo.isCompleted,
-						})}
-					/>
-					<input type="submit" value={todo.isCompleted ? "☑" : "☐"} />
-				</form>
-				<form method="get">
-					<TodosInputs
-						todos={todos}
-						textProps={(innerTodo) => ({
-							type: innerTodo === todo ? "text" : "hidden",
-						})}
-					/>
-				</form>
-				<form method="get">
-					<TodosInputs
-						todos={todos.filter((innerTodo) => innerTodo !== todo)}
-					/>
-					<input type="submit" value="×" class="remove" />
-				</form>
-			</div>
-		))}
+		<main>
+			<form method="get" class="newTodo">
+				<TodosInputs todos={todos} />
+				<TodoIsCompletedInput value={false} />
+				<TodoTextInput type="text" placeholder="What needs to be done?" />
+			</form>
+			{todos.map((todo) => (
+				<div
+					class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
+				>
+					<form method="get" class="toggle">
+						<TodosInputs
+							todos={todos}
+							isCompletedProps={(innerTodo) => ({
+								value:
+									innerTodo === todo
+										? !todo.isCompleted
+										: innerTodo.isCompleted,
+							})}
+						/>
+						<input type="submit" value={todo.isCompleted ? "☑" : "☐"} />
+					</form>
+					<form method="get">
+						<TodosInputs
+							todos={todos}
+							textProps={(innerTodo) => ({
+								type: innerTodo === todo ? "text" : "hidden",
+							})}
+						/>
+					</form>
+					<form method="get">
+						<TodosInputs
+							todos={todos.filter((innerTodo) => innerTodo !== todo)}
+						/>
+						<input type="submit" value="×" class="remove" />
+					</form>
+				</div>
+			))}
+		</main>
 	</>
 );
