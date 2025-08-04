@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "node --experimental-strip-types server.ts",
 		"build:client": "tsc -b && vite build --outDir dist/client",
-		"build:server": "tsc -b && vite build --outDir dist/server --ssr src/server.tsx",
+		"build:server": "tsc -b && vite build --outDir dist/server --ssr server.ts",
 		"preview": "vite preview",
 		"biome:check": "biome check",
 		"biome:check:write": "biome check --write",
