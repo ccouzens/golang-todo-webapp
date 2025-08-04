@@ -67,3 +67,7 @@ async function createServer() {
 }
 
 createServer();
+
+console.log(
+	"http://localhost:5173/?t=clean+the+balcony&c=true&t=go+to+the+gym&c=false",
+);

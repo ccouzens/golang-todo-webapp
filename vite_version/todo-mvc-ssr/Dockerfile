@@ -13,4 +13,4 @@ FROM node:22-slim
 WORKDIR /app
 EXPOSE 5173
 COPY --from=builder /app/dist/ ./dist/
-CMD ["node", "dist/server/server.js"]
+CMD ["dist/server/server.js"]
