@@ -14,7 +14,14 @@ async function createServer() {
 
 	if (isProduction) {
 		const sirv = (await import("sirv")).default;
-		app.use("/", sirv("./dist/client", { extensions: [] }));
+		app.use(
+			"/",
+			sirv("./dist/client", {
+				extensions: [],
+				immutable: true,
+				maxAge: 31536000,
+			}),
+		);
 	} else {
 		const { createServer: createViteServer } = await import("vite");
 		vite = await createViteServer({
