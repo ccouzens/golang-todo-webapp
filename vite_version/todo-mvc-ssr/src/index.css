@@ -26,7 +26,8 @@ input {
 }
 
 body {
-	max-width: 30em;
+	width: 30em;
+	max-width: 100%;
 	margin: 0 auto;
 }
 
@@ -50,44 +51,37 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-input[type="text"] {
-	width: 100%;
-}
-
 main {
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: stretch;
 	font-size: 1.5em;
 	grid-auto-rows: 2lh;
-	view-transition-name: main;
 }
 
-.todo form,
-form.newTodo {
+.todo form {
 	display: flex;
 	align-items: stretch;
-}
-
-.todo {
-	display: grid;
-	grid-template-columns: subgrid;
+	border-top: 1px solid var(--background-color);
 }
 
 .newTodo,
 .todo {
 	background-color: var(--main-background-color);
 	grid-column: 1 / 4;
+	display: grid;
+	grid-template-columns: subgrid;
+}
+
+.newTodo input[type="text"] {
+	grid-column-start: 2;
 }
 
 .newTodo input[type="text"]::placeholder {
 	font-style: italic;
 	color: var(--placeholder-color);
 	width: min-content;
-}
-
-.todo form {
-	border-top: 1px solid var(--background-color);
+	view-transition-name: newTodo-placeholder;
 }
 
 @media (hover: hover) {
