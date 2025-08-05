@@ -59,6 +59,29 @@ main {
 	grid-auto-rows: 2lh;
 }
 
+.todo {
+	view-transition-class: todo;
+}
+
+::view-transition-new(.todo):only-child {
+	animation-name: vertical-expand;
+}
+
+::view-transition-old(.todo):only-child {
+	animation-name: vertical-expand;
+	animation-direction: reverse;
+}
+
+@keyframes vertical-expand {
+	from {
+		clip-path: inset(0 0 100%);
+	}
+
+	to {
+		clip-path: inset(0);
+	}
+}
+
 .todo form {
 	display: flex;
 	align-items: stretch;
