@@ -7,7 +7,6 @@
 	--text-color: #000;
 	--main-background-color: #fff;
 	--placeholder-color: #777;
-	--shadow-color: #0003;
 	background-color: var(--background-color);
 	color: var(--text-color);
 }
@@ -17,7 +16,6 @@
 		--background-color: #333;
 		--text-color: #fff;
 		--main-background-color: #000;
-		--shadow-color: #fff3;
 	}
 }
 
@@ -30,12 +28,6 @@ input {
 body {
 	max-width: 30em;
 	margin: 0 auto;
-}
-
-@media (min-width: 33em) {
-	main {
-		box-shadow: 0 0 calc(max(1lh, 1em)) var(--shadow-color);
-	}
 }
 
 h1 {
@@ -91,7 +83,6 @@ form.newTodo {
 .newTodo input[type="text"]::placeholder {
 	font-style: italic;
 	color: var(--placeholder-color);
-	view-transition-name: new-todo;
 	width: min-content;
 }
 

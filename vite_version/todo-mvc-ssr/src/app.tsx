@@ -18,7 +18,7 @@ const TodoIsCompletedInput: FunctionComponent<
 );
 
 const TodoTextInput: FunctionComponent<InputHTMLAttributes> = (inputProps) => (
-	<input type="hidden" name="t" {...inputProps} />
+	<input type="hidden" name="t" required {...inputProps} />
 );
 
 const TodosInputs: FunctionComponent<{
