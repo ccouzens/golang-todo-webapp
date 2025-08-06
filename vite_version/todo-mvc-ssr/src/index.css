@@ -65,6 +65,12 @@ main {
 	grid-auto-rows: 2lh;
 }
 
+@media (max-width: 50em) {
+	main {
+		font-size: 1em;
+	}
+}
+
 .todo {
 	view-transition-class: todo;
 }
