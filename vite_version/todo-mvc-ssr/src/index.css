@@ -3,8 +3,10 @@
 }
 
 ::view-transition-new(*),
-::view-transition-old(*) {
-	animation-timing-function: linear;
+::view-transition-old(*),
+::view-transition-group(*) {
+	animation-timing-function: ease-in-out;
+	animation-duration: 1s;
 }
 
 :root {
@@ -49,7 +51,6 @@ input {
 	background: none;
 	flex-grow: 1;
 	font-size: 1em;
-	padding: 0 0.5em;
 }
 
 input[type="submit"] {
@@ -66,6 +67,19 @@ main {
 
 .todo {
 	view-transition-class: todo;
+}
+
+.todo.newestTodo {
+	view-transition-class: todo newestTodo;
+}
+
+::view-transition-group(.newestTodo) {
+	z-index: 1;
+}
+
+::view-transition-new(.newTodo):only-child,
+::view-transition-old(.newTodo):only-child {
+	animation-name: none;
 }
 
 ::view-transition-new(.todo):only-child {
@@ -85,6 +99,10 @@ main {
 	to {
 		clip-path: inset(0);
 	}
+}
+
+.newTodo {
+	view-transition-class: newTodo;
 }
 
 .todo form {

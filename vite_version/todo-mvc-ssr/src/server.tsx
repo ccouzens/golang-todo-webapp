@@ -7,5 +7,8 @@ export function render(url: string): string {
 	const queryParams = new URL(`https://a${url}`).searchParams;
 	const todos = parseTodosFromUrlSearchParams(queryParams);
 	const nextId = queryParams.get("n") ?? crypto.randomUUID();
-	return renderToString(<App todos={todos} nextId={nextId} />);
+	const newestId = queryParams.get("f");
+	return renderToString(
+		<App todos={todos} nextId={nextId} newestId={newestId} />,
+	);
 }

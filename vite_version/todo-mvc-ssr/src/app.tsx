@@ -38,7 +38,8 @@ const TodosInputs: FunctionComponent<{
 export const App: FunctionComponent<{
 	todos: Todo[];
 	nextId: string;
-}> = ({ todos, nextId }) => (
+	newestId: string | null;
+}> = ({ todos, nextId, newestId }) => (
 	<>
 		<h1>todos</h1>
 		<main>
@@ -54,10 +55,11 @@ export const App: FunctionComponent<{
 				<TodoTextInput type="text" placeholder="What needs to be done?" />
 				<input type="hidden" name="i" value={nextId} />
 				<input type="hidden" name="n" value={crypto.randomUUID()} />
+				<input type="hidden" name="f" value={nextId} />
 			</form>
 			{todos.map((todo) => (
 				<div
-					class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
+					class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"} ${todo.id === newestId ? "newestTodo" : ""}`}
 					style={{
 						viewTransitionName: `todo-${todo.id}`,
 					}}
