@@ -4,17 +4,13 @@ import type { InputHTMLAttributes } from "preact/compat";
 export type Todo = {
 	text: string;
 	isCompleted: boolean;
+	id: string;
 };
 
 const TodoIsCompletedInput: FunctionComponent<
 	Omit<InputHTMLAttributes, "value"> & { value: boolean }
 > = ({ value, ...inputProps }) => (
-	<input
-		type="hidden"
-		name="c"
-		value={value ? "true" : "false"}
-		{...inputProps}
-	/>
+	<input type="hidden" name="c" value={value ? "Y" : "N"} {...inputProps} />
 );
 
 const TodoTextInput: FunctionComponent<InputHTMLAttributes> = (inputProps) => (
@@ -35,25 +31,35 @@ const TodosInputs: FunctionComponent<{
 				{...isCompletedProps?.(todo)}
 			/>
 			<TodoTextInput value={todo.text} {...textProps?.(todo)} />
+			<input type="hidden" name="i" value={todo.id} />
 		</>
 	));
 
 export const App: FunctionComponent<{
 	todos: Todo[];
-}> = ({ todos }) => (
+	nextId: string;
+}> = ({ todos, nextId }) => (
 	<>
 		<h1>todos</h1>
 		<main>
-			<form method="get" class="newTodo">
+			<form
+				method="get"
+				class="newTodo"
+				style={{
+					viewTransitionName: `todo-${nextId}`,
+				}}
+			>
 				<TodosInputs todos={todos} />
 				<TodoIsCompletedInput value={false} />
 				<TodoTextInput type="text" placeholder="What needs to be done?" />
+				<input type="hidden" name="i" value={nextId} />
+				<input type="hidden" name="n" value={crypto.randomUUID()} />
 			</form>
 			{todos.map((todo) => (
 				<div
 					class={`todo ${todo.isCompleted ? "isCompleted" : "isNotCompleted"}`}
 					style={{
-						viewTransitionName: `todo-${btoa(todo.text).replaceAll("=", "")}`,
+						viewTransitionName: `todo-${todo.id}`,
 					}}
 				>
 					<form method="get" class="toggle">
@@ -66,6 +72,7 @@ export const App: FunctionComponent<{
 										: innerTodo.isCompleted,
 							})}
 						/>
+						<input type="hidden" name="n" value={nextId} />
 						<input type="submit" value={todo.isCompleted ? "☑" : "☐"} />
 					</form>
 					<form method="get">
@@ -75,11 +82,13 @@ export const App: FunctionComponent<{
 								type: innerTodo === todo ? "text" : "hidden",
 							})}
 						/>
+						<input type="hidden" name="n" value={nextId} />
 					</form>
 					<form method="get">
 						<TodosInputs
 							todos={todos.filter((innerTodo) => innerTodo !== todo)}
 						/>
+						<input type="hidden" name="n" value={nextId} />
 						<input type="submit" value="×" class="remove" />
 					</form>
 				</div>

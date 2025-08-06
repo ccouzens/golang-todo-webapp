@@ -7,16 +7,24 @@ export function parseTodosFromUrlSearchParams(
 
 	let text: string | undefined;
 	let isCompleted: boolean | undefined;
+	let id: string | undefined;
 	for (const [key, value] of searchParams) {
-		if (key === "t") {
-			text = value;
-		} else if (key === "c") {
-			isCompleted = value === "true";
+		switch (key) {
+			case "t":
+				text = value;
+				break;
+			case "c":
+				isCompleted = value === "Y";
+				break;
+			case "i":
+				id = value;
+				break;
 		}
-		if (text !== undefined && isCompleted !== undefined) {
-			todos.push({ text, isCompleted });
+		if (text !== undefined && isCompleted !== undefined && id !== undefined) {
+			todos.push({ text, isCompleted, id });
 			text = undefined;
 			isCompleted = undefined;
+			id = undefined;
 		}
 	}
 

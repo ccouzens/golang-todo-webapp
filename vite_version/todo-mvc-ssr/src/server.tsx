@@ -6,5 +6,6 @@ import { parseTodosFromUrlSearchParams } from "./parse-todos-from-url-search-par
 export function render(url: string): string {
 	const queryParams = new URL(`https://a${url}`).searchParams;
 	const todos = parseTodosFromUrlSearchParams(queryParams);
-	return renderToString(<App todos={todos} />);
+	const nextId = queryParams.get("n") ?? crypto.randomUUID();
+	return renderToString(<App todos={todos} nextId={nextId} />);
 }

@@ -2,6 +2,11 @@
 	navigation: auto;
 }
 
+::view-transition-new(*),
+::view-transition-old(*) {
+	animation-timing-function: linear;
+}
+
 :root {
 	--background-color: #eee;
 	--text-color: #000;
@@ -53,7 +58,7 @@ input[type="submit"] {
 
 main {
 	display: grid;
-	grid-template-columns: auto 1fr auto;
+	grid-template-columns: 1.5em 1fr 1.5em;
 	align-items: stretch;
 	font-size: 1.5em;
 	grid-auto-rows: 2lh;
@@ -103,8 +108,6 @@ main {
 .newTodo input[type="text"]::placeholder {
 	font-style: italic;
 	color: var(--placeholder-color);
-	width: min-content;
-	view-transition-name: newTodo-placeholder;
 }
 
 @media (hover: hover) {
