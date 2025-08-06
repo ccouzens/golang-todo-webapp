@@ -3,33 +3,20 @@
 
 <head>
   <title>Todos</title>
+  <link href="/index.css" rel="stylesheet" />
 </head>
 
 <body>
-  <h1>Todo App</h1>
-  <ul>
-    <li>
-      <form action="/create/" method="post">
-        <input name="Text" />
-        <input type="submit" value="New Todo" />
-      </form>
-    </li>
+  <h1>todos</h1>
+  <main>
+    <form method="post" action="/create/" class="newTodo" style="view-transition-name: todo{{ .NextTodo }};">
+      <input type="text" required name="Text" placeholder="What needs to be done?" />
+    </form>
     {{- range .Todos -}}
-    <li>
-      {{- .Text -}}
-      {{ if .Completed -}}
-      <form action="/{{ .Id }}/incomplete/" method="post">
-        <input value="Mark Incomplete" type="submit" />
-      </form>
-      {{- else -}}
-      <form action="/{{ .Id }}/complete/" method="post">
-        <input value="Mark Complete" type="submit" />
-      </form>
-      {{- end -}}
-      <a href="/{{ .Id }}/edit/">Edit</a>
-    </li>
+    <div class="todo {{ if .Completed }}completed{{ end }}">
+    </div>
     {{- end -}}
-  </ul>
+  </main>
 </body>
 
 </html>
