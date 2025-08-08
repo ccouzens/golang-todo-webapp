@@ -28,12 +28,12 @@ func main() {
 			{Id: "3", Text: "Pack European travel adapter", Completed: false},
 		}}
 	var server = http.Server{Addr: "127.0.0.1:8080", Handler: serveMux}
-	var templates, err = template.ParseFiles("index.go.html", "edit.go.html")
+	var templates, err = template.ParseFiles("index.go.html")
 	if err != nil {
 		panic(err)
 	}
 	serveMux.HandleFunc("/index.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "vite_version/todo-mvc-ssr/dist/client/assets/index-DHN2Rxi5.css")
+		http.ServeFile(w, r, "vite_version/todo-mvc-ssr/dist/client/assets/index-B27fdXS0.css")
 	})
 	serveMux.HandleFunc("/{$}", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Content-Type", "text/html; charset=utf-8")

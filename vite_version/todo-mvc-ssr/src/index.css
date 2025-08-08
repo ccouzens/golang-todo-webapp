@@ -63,6 +63,7 @@ main {
 	align-items: stretch;
 	font-size: 1.5em;
 	grid-auto-rows: 2lh;
+	row-gap: 1px;
 }
 
 @media (max-width: 50em) {
@@ -79,8 +80,10 @@ main {
 	view-transition-class: todo newestTodo;
 }
 
-::view-transition-group(.newestTodo) {
+::view-transition-group(.newestTodo),
+::view-transition-new(.newTodo) {
 	z-index: 1;
+	outline: 1px solid var(--background-color);
 }
 
 ::view-transition-new(.newTodo):only-child,
@@ -114,7 +117,6 @@ main {
 .todo form {
 	display: flex;
 	align-items: stretch;
-	border-top: 1px solid var(--background-color);
 }
 
 .newTodo,
